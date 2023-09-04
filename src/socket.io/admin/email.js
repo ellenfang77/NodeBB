@@ -108,20 +108,21 @@ class Email {
                         force: 1,
                         template: data.template,
                         subject: data.template === 'welcome' ?
+                            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                             `[[email:welcome-to, ${meta_1.default.config.title || meta_1.default.config.browserTitle || 'NodeBB'}]]` :
                             undefined,
                     });
                     break;
                 case 'notification': {
-                    const inputData = {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    const notification = yield notifications_1.default.create({
                         type: 'test',
                         bodyShort: '[[email:notif.test.short]]',
                         bodyLong: '[[email:notif.test.long]]',
                         nid: `uid:${socket.uid}:test`,
                         path: '/',
                         from: socket.uid,
-                    };
-                    const notification = yield notifications_1.default.create(inputData);
+                    });
                     yield emailer_1.default.send('notification', socket.uid, {
                         path: notification.path,
                         subject: utils_1.default.stripHTMLTags(notification.subject || '[[notifications:new_notification]]'),

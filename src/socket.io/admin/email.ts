@@ -34,16 +34,6 @@ interface Payload {
     reason?: string;
 }
 
-interface EmailTemplate {
-    type: string;
-    bodyShort: string;
-    bodyLong: string;
-    nid: string;
-    path: string;
-    from: number;
-    test: any
-}
-
 // const Email: EmailTemplate = {
 //     type: '',
 //     bodyShort: '',
@@ -147,12 +137,14 @@ class Email {
                 template: data.template,
                 subject:
                     data.template === 'welcome' ?
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                         `[[email:welcome-to, ${meta.config.title as string || meta.config.browserTitle as string || 'NodeBB'}]]` :
                         undefined,
             });
             break;
 
         case 'notification': {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const notification: notif = await notifications.create({
                 type: 'test',
                 bodyShort: '[[email:notif.test.short]]',

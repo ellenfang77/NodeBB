@@ -9,7 +9,7 @@ interface Socket {
     uid: number;
 }
 
-interface notif {
+interface Notif {
     type: string;
     bodyShort: string;
     bodyLong: string;
@@ -82,14 +82,14 @@ Email.test = async function (socket: Socket, data: { payload?: Payload; template
         break;
 
     case 'notification': {
-        const notification: notif = await notifications.create({
+        const notification: Notif = await notifications.create({
             type: 'test',
             bodyShort: '[[email:notif.test.short]]',
             bodyLong: '[[email:notif.test.long]]',
             nid: `uid:${socket.uid}:test`,
             path: '/',
             from: socket.uid,
-        }) as notif;
+        }) as Notif;
         await emailer.send('notification', socket.uid, {
             path: notification.path,
             subject: utils.stripHTMLTags(notification.subject || '[[notifications:new_notification]]'),

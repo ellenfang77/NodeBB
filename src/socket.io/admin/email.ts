@@ -1,3 +1,4 @@
+// Chat-GPT was used for translating import statements and defining some interfaces.
 import meta from '../../meta';
 import userDigest from '../../user/digest';
 import userEmail from '../../user/email';
